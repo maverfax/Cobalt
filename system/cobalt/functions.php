@@ -25,7 +25,7 @@ function load_time($decimals = 5)
 }
 
 /**
- * Returns the base url to the website
+ * Returns the base URL to the website
  *
  * @return string
  */
@@ -35,7 +35,7 @@ function base_url()
 }
 
 /**
- * Returns the url to a page
+ * Returns the URL to a page
  *
  * @return string
  */
@@ -49,6 +49,16 @@ function site_url($uri = '')
 	}
 
 	return base_url() . $page . $uri;
+}
+
+/**
+ * Returns the current URL
+ *
+ * @return string
+ */
+function current_url()
+{
+	return site_url(Cobalt_Base::get('request')->uri());
 }
 
 /**

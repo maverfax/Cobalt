@@ -65,3 +65,38 @@ function redirect($uri = '')
 
 	exit;
 }
+
+/**
+ * Returns the current user's IP address
+ *
+ * @return string
+ */
+function ip_address()
+{
+	static $ip_address;
+
+	if(is_null($ip_address))
+	{
+		if(isset($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
+		{
+			$ip_address = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
+		}
+
+		elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+		{
+			$ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		}
+
+		elseif(isset($_SERVER['HTTP_CLIENT_IP']))
+		{
+			$ip_address = $_SERVER['HTTP_CLIENT_IP'];
+		}
+
+		elseif(isset($_SERVER['REMOTE_ADDR']))
+		{
+			$ip_address = $_SERVER['REMOTE_ADDR'];
+		}
+	}
+
+	return $ip_address;
+}

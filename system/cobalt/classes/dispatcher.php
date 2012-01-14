@@ -41,7 +41,7 @@ class Dispatcher {
 				Cobalt_Base::set('controller', $class);
 
 				// Now run the action
-				$data   = $class->$action();
+				$data = $class->$action();
 
 				if($data !== FALSE)
 				{

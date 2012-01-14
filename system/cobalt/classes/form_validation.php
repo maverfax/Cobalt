@@ -2,9 +2,33 @@
 
 class Form_Validation {
 
+	/**
+	 * Stores the set rules
+	 *
+	 * @var array
+	 */
 	private $rules  = array();
+
+	/**
+	 * Stores the inputted form data
+	 *
+	 * @var array
+	 */
 	private $input  = array();
+
+	/**
+	 * Stores the form data which gets resetted after a form is
+	 * successfully validated.
+	 *
+	 * @var array
+	 */
 	private $data   = array();
+
+	/**
+	 * Stores the errors encountered
+	 *
+	 * @var array
+	 */	
 	private $errors = array();
 
 	/**

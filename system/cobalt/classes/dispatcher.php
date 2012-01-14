@@ -41,12 +41,11 @@ class Dispatcher {
 				Cobalt_Base::set('controller', $class);
 
 				// Now run the action
-				$data = $class->$action();
+				$data   = $class->$action();
+				$layout = FALSE;
 
 				if($data !== FALSE)
 				{
-					$layout = FALSE;
-
 					if(isset($class->layout))
 					{
 						$layout = $class->layout;

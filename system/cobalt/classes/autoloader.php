@@ -48,9 +48,18 @@ class Autoloader {
 			$class  = substr($class, $namespace + 1);
 
 			// Is the class further namespaced?
-			if(strpos('\\', $class))
+			if(($pos = strpos($module, '\\')) !== FALSE)
 			{
-				// TODO
+				$extra  = substr($module, $pos + 1);
+				$module = substr($module, 0, $pos);
+
+				// If we need to, change the \ to the directory separator
+				if(strpos($extra, '\\') !== FALSE && DS != '\\')
+				{
+					$extra = str_replace('\\', DS, $extra);
+				}
+
+				$path = 'modules'.DS.$module.DS.'classes'.DS.$extra.DS;
 			}
 
 			else

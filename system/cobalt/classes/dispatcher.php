@@ -16,6 +16,9 @@ class Dispatcher {
 			$request = new Request($request);
 		}
 
+		// Save the request to the base
+		Cobalt_Base::set('request', $request);
+
 		// Determine the action to run
 		list($module, $action) = static::action($request);
 
@@ -36,14 +39,36 @@ class Dispatcher {
 			{
 				// Save the new instances to the base
 				Cobalt_Base::set('controller', $class);
-				Cobalt_Base::set('request', $request);
 
 				// Now run the action
-				return $class->$action();
+				$data   = $class->$action();
+
+				if($data !== FALSE)
+				{
+					$layout = FALSE;
+
+					if(isset($class->layout))
+					{
+						$layout = $class->layout;
+					}
+
+					$output = new Layout;
+
+					if( ! is_null($data))
+					{
+						$output->data($data);
+					}
+
+					$output->build($module, $action, $layout);
+				}
+
+				return;
 			}
 		}
 
-		error('FO-OH-FO BRO');
+		$output = new Layout;
+
+		$output->load('404');
 	}
 
 	/**

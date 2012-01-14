@@ -8,7 +8,7 @@ class Routes extends \Cobalt {
 	{
 		$posts = $this->blog->model->posts();
 
-		$this->blog->view('index', compact('posts'));
+		return compact('posts');
 	}
 
 	public function post()
@@ -25,6 +25,17 @@ class Routes extends \Cobalt {
 			redirect();
 		}
 
-		$this->blog->view('post', compact('post', 'form'));
+		$form = new \Form_Validation(array(
+			'content' => array('required'),
+		));
+
+		if($form->run())
+		{
+			$this->blog->model->add_comment($id, $form->input('content'));
+		}
+
+		$comments = $this->blog->model->comments($id);
+
+		return compact('form', 'post', 'comments');
 	}
 }

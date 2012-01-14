@@ -23,22 +23,32 @@ class Model extends \Cobalt {
 	 */
 	public function post($id)
 	{
-		$query = $this->db->query('SELECT * FROM posts WHERE id = ?', $id);
+		return $this->db->query('SELECT * FROM posts WHERE id = ?', $id)->row();
+	}
 
-		if($query->num_rows() > 0)
-		{
-			$post = $query->row();
+	/**
+	 * Returns comments for a specific post
+	 *
+	 * @param  int    $id
+	 * @return array
+	 */
+	public function comments($id)
+	{
+		$query = $this->db->query('SELECT * FROM comments WHERE post_id = ? ORDER BY id DESC', $id);
 
-			$query  = $this->db->query('SELECT * FROM comments WHERE post_id = ?', $id);
+		return $query->results();
+	}
 
-			$post->comments = $query->results();
+	/**
+	 * Adds a comment to a post
+	 *
+	 * @param  int     $id
+	 * @param  string  $content
+	 */
+	public function add_comment($id, $content)
+	{
+		$query = 'INSERT INTO comments (post_id, content) VALUES (?, ?)';
 
-			return $post;
-		}
-
-		else
-		{
-			return FALSE;
-		}
+		$this->db->query($query, array($id, $content));
 	}
 }

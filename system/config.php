@@ -2,11 +2,21 @@
 
 return array(
 
+	'index_page' => 'index.php',
+
+	'autoload' => array(
+		'classes' => array(),
+		'modules' => array(),
+	),
+
 	'database' => array(
-		'hostname' => '127.0.0.1',
-		'database' => 'blog',
-		'username' => 'root',
-		'password' => '',
+		'default' => array(
+			'hostname' => '127.0.0.1',
+			'username' => 'root',
+			'password' => '',
+			'database' => 'blog',
+			'pconnect' => FALSE,
+		),
 	),
 
 	'routes' => array(

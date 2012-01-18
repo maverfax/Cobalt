@@ -8,6 +8,22 @@ class Routes extends \Cobalt {
 	{
 		$posts = $this->blog->model->posts();
 
+		\Schema::table('table', function($table)
+		{
+			$table->integer('id')->unique()->increments();
+			$table->string('title');
+			$table->text('content');
+			$table->integer('author');
+
+			$table->create();
+		});
+
+
+		\Schema::table('table', function($table)
+		{
+			// $table->drop();
+		});
+
 		return compact('posts');
 	}
 

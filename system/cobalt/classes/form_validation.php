@@ -2,33 +2,9 @@
 
 class Form_Validation {
 
-	/**
-	 * Stores the set rules
-	 *
-	 * @var array
-	 */
 	private $rules  = array();
-
-	/**
-	 * Stores the inputted form data
-	 *
-	 * @var array
-	 */
 	private $input  = array();
-
-	/**
-	 * Stores the form data which gets resetted after a form is
-	 * successfully validated.
-	 *
-	 * @var array
-	 */
 	private $data   = array();
-
-	/**
-	 * Stores the errors encountered
-	 *
-	 * @var array
-	 */	
 	private $errors = array();
 
 	/**
@@ -215,7 +191,7 @@ class Form_Validation {
 	 */
 	 private function field_name($field)
 	 {
-		if(strpos($field, '_'))
+	 	if(strpos($field, '_'))
 		{
 			$field = str_replace('_', ' ', $field);
 		}
@@ -253,9 +229,9 @@ class Form_Validation {
 	{
 		 if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $value))
 		 {
-			$this->errors[] = 'The ' . $this->field_name($field) . ' field must contain a valid email address';
+		 	$this->errors[] = 'The ' . $this->field_name($field) . ' field must contain a valid email address';
 
-			return FALSE;
+		 	return FALSE;
 		 }
 	}
 
@@ -273,6 +249,23 @@ class Form_Validation {
 		{
 			$this->errors[] = 'The ' . $this->field_name($field) . ' field does not match the Confirm ' . $this->field_name($field) . ' field';
 
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Checks if a field contains an integer
+	 *
+	 * @param  string  $field
+	 * @param  string  $value
+	 * @param  string  $next_field
+	 * @return bool
+	 */
+	private function integer($field, $value)
+	{
+		if(filter_var($value, FILTER_VALIDATE_INT) === FALSE)
+		{
+			$this->errors[] = 'The ' . $this->field_name($field) . ' field requires a valid integer';
 			return FALSE;
 		}
 	}

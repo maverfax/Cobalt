@@ -59,7 +59,7 @@ class Schema_Table extends Cobalt {
 
 	/**
 	 * Wether or not a field will be dropped. If true, then
-	 * it will store teh name of the field to be dropped
+	 * it will store the name of the field to be dropped
 	 *
 	 * @param mixed
 	 */
@@ -107,7 +107,7 @@ class Schema_Table extends Cobalt {
 	}
 
 	/**
-	 * Creates an intenger field
+	 * Creates an integer field
 	 *
 	 * @param  string        $name
 	 * @param  int           $size
@@ -251,6 +251,7 @@ class Schema_Table extends Cobalt {
 	 */
 	public function save()
 	{
+		// Create a table
 		if($this->type == 'create')
 		{
 			$this->db->query('DROP TABLE IF EXISTS `'.$this->table.'`');
@@ -271,6 +272,7 @@ class Schema_Table extends Cobalt {
 			$query .= ') ENGINE = MYISAM;';
 		}
 
+		// Edit a table
 		elseif($this->type == 'alter')
 		{
 			$query = 'ALTER TABLE `'.$this->table.'` ';
@@ -286,6 +288,7 @@ class Schema_Table extends Cobalt {
 			}
 		}
 
+		// Delete a table
 		elseif($this->type == 'delete')
 		{
 			$query = 'DROP TABLE `'.$this->table.'`';
@@ -295,7 +298,7 @@ class Schema_Table extends Cobalt {
 	}
 
 	/**
-	 * Prepares a field
+	 * Prepares a field in SQL
 	 *
 	 * @param  array  $field
 	 * @param  string $change
@@ -335,7 +338,7 @@ class Schema_Table extends Cobalt {
 
 	/**
 	 * Finds a field that contains the given name, or, if no name is given,
-	 * returns the last field added.
+	 * returns the last added field.
 	 *
 	 * @param  string  $field
 	 * @return int
